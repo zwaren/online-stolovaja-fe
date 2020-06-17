@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  uri = "/api";
+  uri = "localhost:4000/api";
   token;
 
   constructor(private http: HttpClient,private router: Router) { }
@@ -21,8 +21,8 @@ export class AuthService {
     });
   }
 
-  signup(name: string, email: string, password: string) {
-    this.http.post(this.uri + '/signup', {name: name, email: email, password: password});
+  signup(name: string, email: string, password: string, isCook: boolean) {
+    this.http.post(this.uri + '/signup', {name: name, email: email, password: password, isCook: isCook});
   }
 
   logout() {
