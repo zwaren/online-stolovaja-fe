@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { FlashMessagesService } from 'angular2-flash-messages';
 
 import { AuthService } from '../auth.service'
 
 @Component({
-  selector: 'app-registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.css']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
-export class RegistrationComponent implements OnInit {
+export class LoginComponent implements OnInit {
   form: FormGroup
 
-  constructor(private fb: FormBuilder, private auth: AuthService, private flash: FlashMessagesService) {}
+  constructor(private fb: FormBuilder, private auth: AuthService) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -20,10 +19,6 @@ export class RegistrationComponent implements OnInit {
 
   initForm() {
     this.form = this.fb.group({
-      name: [null, [
-        Validators.required,
-        Validators.pattern(/^[А-ЯЁ][а-яё]* [А-ЯЁ][а-яё]*$/)
-      ]],
       email: [null, [
         Validators.required, 
         Validators.email
@@ -31,8 +26,7 @@ export class RegistrationComponent implements OnInit {
       password: [null, [
         Validators.required,
         Validators.minLength(8)
-      ]],
-      isCook: [false]
+      ]]
     })
   }
 
@@ -58,17 +52,10 @@ export class RegistrationComponent implements OnInit {
     }
     
     /** Обработка данных формы */
-    let ret = this.auth.signup(
-      this.form.get('name').value,
+    this.auth.login(
       this.form.get('email').value,
-      this.form.get('password').value,
-      this.form.get('isCook').value,
+      this.form.get('password').value
     )
-    if (ret) {
-      this.flash.show('Регистрация прошла успешно!', { cssClass: 'alert-success', timeout: 3000 })
-    } else {
-      this.flash.show('При регистрации возникла ошибка!', { cssClass: 'alert-danger', timeout: 3000 })
-    }
   }
 
 }

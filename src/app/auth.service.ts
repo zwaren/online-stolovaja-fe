@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  uri = "localhost:4000/api";
+  uri = "/api";
   token;
 
   constructor(private http: HttpClient,private router: Router) { }
@@ -15,14 +15,21 @@ export class AuthService {
   login(email: string, password: string) {
     this.http.post(this.uri + '/login', {email: email, password: password})
     .subscribe((resp: any) => {
-     
+      this.router.navigate(['timetable'])
       localStorage.setItem('auth_token', resp.token);
-      
     });
   }
 
-  signup(name: string, email: string, password: string, isCook: boolean) {
-    this.http.post(this.uri + '/signup', {name: name, email: email, password: password, isCook: isCook});
+  signup(name: string, email: string, password: string, isCook: boolean) : boolean {
+    let ret : boolean;
+    this.http.post(this.uri + '/signup', {name: name, email: email, password: password, isCook: isCook})
+    .subscribe((resp: any) => {
+      ret = true;
+    },
+    (err: HttpErrorResponse) => {
+      ret = false;
+    });
+    return ret;
   }
 
   logout() {
