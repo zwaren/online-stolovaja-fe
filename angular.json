@@ -63,7 +63,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "online-stolovaja-fe:build"
+            "browserTarget": "online-stolovaja-fe:build",
+            "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {
