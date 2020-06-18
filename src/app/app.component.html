@@ -8,16 +8,19 @@
   <div class="collapse navbar-collapse" id="navbarColor01"
     [ngClass]="{ 'show': navbarOpen }">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/">Главная</a>
+      <li class="nav-item" *ngIf="user">
+        <a class="nav-link" routerLink="/schedule">Расписание</a>
+      </li>
+      <li class="nav-item" *ngIf="status == 'cook'">
+        <a class="nav-link" routerLink="/dishes">Реестр блюд</a>
       </li>
     </ul>
-    <ul class="navbar-nav justify-content-end" *ngIf="token">
+    <ul class="navbar-nav justify-content-end" *ngIf="user">
       <li class="nav-item">
         <a class="nav-link" (click)="logout()">Выход</a>
       </li>
     </ul>
-    <ul class="navbar-nav justify-content-end" *ngIf="!token">
+    <ul class="navbar-nav justify-content-end" *ngIf="!user">
       <li class="nav-item">
         <a class="nav-link" routerLink="/auth/login">Вход</a>
       </li>

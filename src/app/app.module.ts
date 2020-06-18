@@ -8,18 +8,25 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AppComponent } from './app.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
+import { ScheduleComponent } from './schedule/schedule.component';
+import { DishesComponent } from './dishes/dishes.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '' },
   { path: 'auth/signup', component: RegistrationComponent },
-  { path: 'auth/login', component: LoginComponent }
+  { path: 'auth/login', component: LoginComponent },
+  { path: 'schedule', component: ScheduleComponent },
+  { path: 'dishes', component: DishesComponent },
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
+    ScheduleComponent,
+    DishesComponent
   ],
   imports: [
     BrowserModule,
@@ -27,6 +34,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     FlashMessagesModule.forRoot(),
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

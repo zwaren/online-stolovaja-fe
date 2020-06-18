@@ -16,13 +16,20 @@ export class AppComponent {
     this.navbarOpen = !this.navbarOpen;
   }
 
-  token: string;
+  user: any;
+  status: string;
 
   constructor(
     private router: Router,
     private authService: AuthService
   ) {
-    this.authService.token.subscribe(x => this.token = x);
+    this.authService.user.subscribe(x => {
+      this.user = x;
+      if (x) {
+        let groups = this.user.groups;
+        this.status = groups[groups.length - 1].name;
+      }
+    });
   }
 
   logout() {

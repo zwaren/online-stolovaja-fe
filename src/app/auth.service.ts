@@ -12,10 +12,14 @@ export class AuthService {
 
   private tokenSubject: BehaviorSubject<string>;
   public token: Observable<string>;
+  private userSubject: BehaviorSubject<any>;
+  public user: Observable<any>;
 
   constructor(private http: HttpClient, private router: Router) {
     this.tokenSubject = new BehaviorSubject<string>(localStorage.getItem('auth_token'));
     this.token = this.tokenSubject.asObservable();
+    this.userSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('user')));
+    this.user = this.userSubject.asObservable();
   }
 
   login(username: string, password: string) {
@@ -23,7 +27,23 @@ export class AuthService {
       .subscribe((resp: any) => {
         localStorage.setItem('auth_token', resp.token);
         this.tokenSubject.next(resp.token);
+        this.profile();
+        this.router.navigate(['schedule']);
       });
+  }
+
+  logout() {
+    const headers = { 'Authorization': `Token ${this.tokenSubjectValue}` };
+    this.http.get(this.uri + '/logout/', { headers }).subscribe(
+      resp => {
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('user');
+        this.tokenSubject.next(null);
+        this.userSubject.next(null);
+      },
+      err => { console.log(err); }
+    );
+    
   }
 
   signup(username: string, email: string, password: string): boolean {
@@ -39,18 +59,24 @@ export class AuthService {
     return ret;
   }
 
-  logout() {
-    const headers = { 'Authorization': `Token ${this.tokenSubjectValue}` }
-    this.http.get(this.uri + '/logout/', { headers }).subscribe(
-      resp => { },
+  profile(): any {
+    const headers = { 'Authorization': `Token ${this.tokenSubjectValue}` };
+    this.http.get(this.uri + '/profile/', { headers }).subscribe(
+      resp => {
+        localStorage.setItem('user', JSON.stringify(resp));
+        this.userSubject.next(resp);
+        return resp;
+      },
       err => { console.log(err); }
     );
-    localStorage.removeItem('auth_token');
-    this.tokenSubject.next(null);
   }
 
   public get tokenSubjectValue(): string {
     return this.tokenSubject.value;
+  }
+
+  public get userSubjectValue(): string {
+    return this.userSubject.value;
   }
 
   public get isLogedIn(): boolean {
