@@ -1,0 +1,20 @@
+<div class="card">
+    <div class="row no-gutters d-inline-flex">
+        <div class="col-sm-6 d-flex flex-row">
+            <div class="p-3">
+                <i class="material-icons" *ngIf="this.dish.type == 'first'">local_dining</i>
+                <i class="material-icons" *ngIf="this.dish.type == 'second'">restaurant</i>
+                <i class="material-icons" *ngIf="this.dish.type == 'third'">local_cafe</i>
+            </div>
+            <p class="p-3">{{ this.dish.name }}</p>
+        </div>
+        <div class="col-sm-6 text-right">
+            <button class="btn btn-outline-primary rounded-pill m-2" type="submit">
+                <i class="material-icons">edit</i>
+            </button>
+            <button class="btn btn-outline-primary rounded-pill m-2" type="submit">
+                <i class="material-icons">delete</i>
+            </button>
+        </div>
+    </div>
+</div>
