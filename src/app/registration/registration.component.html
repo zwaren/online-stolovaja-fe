@@ -1,9 +1,9 @@
 <form [formGroup]="form" (submit)="onSubmit()">
     <div class="form-group">
-        <label for="name">Имя</label>
-        <input type="text" id="name" formControlName="name" class="form-control" placeholder="Имя Фамилия" />
+        <label for="username">Имя</label>
+        <input type="text" id="username" formControlName="username" class="form-control" placeholder="username" />
     </div>
-    <div class="error" *ngIf="isControlInvalid('name')">
+    <div class="error" *ngIf="isControlInvalid('username')">
         Имя должно состоять только из русских букв и соответствовать шаблону
     </div>
   
@@ -26,14 +26,7 @@
     <div class="error" *ngIf="isControlInvalid('password')">
         Минимальная длина пароля - 8 знаков
     </div>
-
-    <br>
     
-    <div class="form-check">
-        <input type="checkbox" id="isCook" formControlName="isCook" class="form-check-input" />
-        <label class="form-check-label" for="isCook">Повар?</label>
-    </div>
-
     <br><br>
 
     <button type="submit" class="btn btn-primary">Отправить</button>

@@ -19,9 +19,8 @@ export class LoginComponent implements OnInit {
 
   initForm() {
     this.form = this.fb.group({
-      email: [null, [
-        Validators.required, 
-        Validators.email
+      username: [null, [
+        Validators.required,
       ]],
       password: [null, [
         Validators.required,
@@ -53,7 +52,7 @@ export class LoginComponent implements OnInit {
     
     /** Обработка данных формы */
     this.auth.login(
-      this.form.get('email').value,
+      this.form.get('username').value,
       this.form.get('password').value
     )
   }

@@ -12,7 +12,12 @@
         <a class="nav-link" routerLink="/">Главная</a>
       </li>
     </ul>
-    <ul class="navbar-nav justify-content-end">
+    <ul class="navbar-nav justify-content-end" *ngIf="token">
+      <li class="nav-item">
+        <a class="nav-link" (click)="logout()">Выход</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav justify-content-end" *ngIf="!token">
       <li class="nav-item">
         <a class="nav-link" routerLink="/auth/login">Вход</a>
       </li>

@@ -1,10 +1,10 @@
 <form [formGroup]="form" (submit)="onSubmit()">
     <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" formControlName="email" class="form-control" placeholder="example@domain.com" />
+        <label for="username">Username</label>
+        <input type="text" id="username" formControlName="username" class="form-control" placeholder="username" />
     </div>
-    <div class="error" *ngIf="isControlInvalid('email')">
-        Email должен быть валидным
+    <div class="error" *ngIf="isControlInvalid('username')">
+        Имя пользователя должно быть валидным
     </div>
 
     <br>

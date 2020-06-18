@@ -20,9 +20,8 @@ export class RegistrationComponent implements OnInit {
 
   initForm() {
     this.form = this.fb.group({
-      name: [null, [
+      username: [null, [
         Validators.required,
-        Validators.pattern(/^[А-ЯЁ][а-яё]* [А-ЯЁ][а-яё]*$/)
       ]],
       email: [null, [
         Validators.required, 
@@ -32,7 +31,6 @@ export class RegistrationComponent implements OnInit {
         Validators.required,
         Validators.minLength(8)
       ]],
-      isCook: [false]
     })
   }
 
@@ -59,10 +57,9 @@ export class RegistrationComponent implements OnInit {
     
     /** Обработка данных формы */
     let ret = this.auth.signup(
-      this.form.get('name').value,
+      this.form.get('username').value,
       this.form.get('email').value,
       this.form.get('password').value,
-      this.form.get('isCook').value,
     )
     if (ret) {
       this.flash.show('Регистрация прошла успешно!', { cssClass: 'alert-success', timeout: 3000 })
